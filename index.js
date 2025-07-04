@@ -3,10 +3,11 @@ window.onload = () => {
 
   const hack = [
     "Initializing Scan...",
-    "Reading your files...",
-    "Fetching Password Files...",
-    "Sending files to the server...",
-    "Cleaning up tracks...",
+    "Fetching secure data...",
+    "Bypassing firewall...",
+    "Detecting logs",
+    "Sending to remote servers...",
+    "Clearing traces...",
     "Erasing data..."
   ];
 
