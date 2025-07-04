@@ -1,23 +1,43 @@
-function startHacking() {
-  // Request fullscreen
-  const elem = document.documentElement;
-  if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  }
+// Matrix canvas setup
+const canvas = document.getElementById('matrix');
+const ctx = canvas.getContext('2d');
 
-  // Hide start screen
-  document.getElementById("start-screen").style.display = "none";
-
-  // Matrix Animation Setup
-  const canvas = document.getElementById('matrix');
-  const ctx = canvas.getContext('2d');
+// Resize the canvas on load + window resize
+function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
+//Hacker Launch Function
+function startHacking() {
+  const elem = document.documentElement;
+
+  //Request fullscreen safely
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen().catch(err => {
+      console.warn("Fullscreen blocked:", err);
+    });
+  }
+
+  //Hide start screen with fade
+  const startScreen = document.getElementById("start-screen");
+  startScreen.classList.add("fade-out");
+  setTimeout(() => (startScreen.style.display = "none"), 500);
+
+  //Initialising matrix variables
   const letters = '01';
   const fontSize = 14;
-  const columns = canvas.width / fontSize;
-  const drops = Array.from({ length: columns }, () => 1);
+  let columns = canvas.width / fontSize;
+  let drops = Array.from({ length: columns }, () => 1);
+
+  //Update drops on resize
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+    columns = canvas.width / fontSize;
+    drops = Array.from({ length: columns }, () => 1);
+  });
 
   function drawMatrix() {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
@@ -40,7 +60,7 @@ function startHacking() {
 
   setInterval(drawMatrix, 33);
 
-  // Terminal loader animation
+  // Terminal Loader Setup
   const msg_display = document.getElementById('root');
   const hack = [
     "Initializing Scan...",
