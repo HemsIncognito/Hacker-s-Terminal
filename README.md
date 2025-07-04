@@ -15,7 +15,6 @@ The moment you open the site:
   - `Clearing traces...`
 - Looks like you're running a super elite hack in progress
 
----
 
 ## 🛠️ Built With
 
